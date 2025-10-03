@@ -1,45 +1,7 @@
 # <center> Random Policy Valuation is Enough for LLM Reasoning with Verifiable Rewards </center>
----
-<p align="center">
-<a href="https://arxiv.org/abs/2509.24981">
-    <img
-      src="https://img.shields.io/badge/ROVER-Paper-red?logo=arxiv&logoColor=red"
-      alt="ROVER Paper on arXiv"
-    />
-</a>
-  <a href="https://x.com/tinner_he/status/1972872814127727004">
-    <img
-      src="https://img.shields.io/badge/ROVER-Threads-red?logo=X&logoColor=black"
-      alt="ROVER twitter"
-    />
-  </a>
-</p>
 
-This is the official repository for the paper [Random Policy Valuation is Enough for LLM Reasoning with Verifiable Rewards](https://arxiv.org/abs/2509.24981). This repository currently contains code for environment setup, training, and evaluation.
+We propose <u>**R**</u>andom P<u>**o**</u>licy <u>**V**</u>aluation for Di<u>**v**</u>erse <u>**R**</u>easoning (**ROVER**), a minimalist and highly effective RL method for LLM reasoning, achieving superior optimality and diversity by evaluating uniform-policy Q-values.
 
-🚀 We propose <u>**R**</u>andom P<u>**o**</u>licy <u>**V**</u>aluation for Di<u>**v**</u>erse <u>**R**</u>easoning (**ROVER**), a minimalist and highly effective RL method for LLM reasoning, achieving superior optimality and diversity by evaluating uniform-policy Q-values.
-
-
-### 🏆 Main Results and Features
-<img width="1217" alt="image" src="./teaser.png" />
-<em>Figure 1: (a) ROVER achieves superior performances in terms of both pass@1 and pass@256 (trained on Qwen3-8B-Base averaged over AIME24, AIME24 and HMMT25 tasks). (b) Illustrative example demonstrating that ROVER achieves high-quality solutions with a lightweight procedure (see Table below for details) while maintaining diversity. (c) ROVER achieves higher diversity.</em> <br>
-<br>
-ROVER needs minimal GPU memory and computation cost, leaving more space for the KV cache. This allows ROVER to run on smaller memory setups and speeds up training:
-
-| Method       | Memory Usage of Model Parameters                |
-| ------------ | ----------------------------------------------- |
-| ROVER (Ours) | **Low**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(actor model ONLY!😊)                |
-| GRPO         | **Medium** (actor + reference model)            |
-| PPO          | **High**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(actor + reference + critic model)   |
-
-
-
-### 🤗 Models
-| Models | Tasks | 
-|:---------|:-----|
-|[🤗ROVER-Qwen3-4B](https://huggingface.co/haoranhe/ROVER-Qwen3-4B)|Math Reasoning|
-|[🤗ROVER-Qwen3-8B](https://huggingface.co/haoranhe/ROVER-Qwen3-8B)|Math Reasoning|
-|[🤗ROVER-countdown-3B](https://huggingface.co/haoranhe/ROVER-countdown-3B)|Countdown Games|
 ### 🔧 Installation
 
 This work considers two tasks for training and evaluating ROVER, which are countdown games for fine-grained analysis and more complex math reasoning tasks. Therefore, this project uses two separate environments for different tasks.
@@ -101,19 +63,3 @@ pip install -r requirements_eval.txt
 bash ./gen_eval_pipeline.sh /path/to/trained/model AIME2024
 ```
 Note that `/path/to/trained/model` should end with `global_step_600`. The script sequentially: 1) converts the model to HF format, 2) deploys the vllm model, 3) rollout, 4) scores with math_verify.
-
-### 👍 Acknowledgement
-We thank the following open-source works:
-- We follow [verl](https://github.com/volcengine/verl) and [DeepScaler](https://github.com/agentica-project/rllm) to build our codebase.
-- We follow [TinyZero](https://github.com/Jiayi-Pan/TinyZero) for implementation the countdown task.
-- We adopt the dataset provided by [DeepScaler](https://github.com/agentica-project/rllm) for training math reasoning models.
-### 📖 Citation
-If you find the project useful, please consider citing our paper:
-```bib
-@article{he2025randompolicyvaluation,
-      title={Random Policy Valuation is Enough for LLM Reasoning with Verifiable Rewards}, 
-      author={Haoran He and Yuxiao Ye and Qingpeng Cai and Chen Hu and Binxing Jiao and Daxin Jiang and Ling Pan},
-      journal={arXiv preprint arXiv:2509.24981},
-      year={2025}
-}
-```
